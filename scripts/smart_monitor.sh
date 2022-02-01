@@ -22,7 +22,7 @@ function collect_smart() {
 
 function sata_status () {
                   health=`echo "$tmpstatus" | grep "SMART overall-health self-assessment test result"| cut -d\: -f2`
-                  if [[ "$health" != "SUCCESS" ]]
+                  if [ "$health" != " PASSED" ] && [ "$health" != "PASSED" ] && [ "$health" != "SUCCESS" ] && [ "$health" != " SUCCESS" ]
                        then echo "${disk}_failed_state 1" > $outfile
                        else echo "${disk}_failed_state 0" > $outfile
                   fi
@@ -37,7 +37,7 @@ function sata_status () {
 
 function nvme_status () {
 	          health=`echo "$tmpstatus" | grep "SMART overall-health self-assessment test result"| cut -d\: -f2`
-                  if [[ "$health" != "SUCCESS" ]]
+		  if [ "$health" != " PASSED" ] && [ "$health" != "PASSED" ] && [ "$health" != "SUCCESS" ] && [ "$health" != " SUCCESS" ]
                        then echo "${disk}_failed_state 1" > $outfile
                        else echo "${disk}_failed_state 0" > $outfile
                   fi
