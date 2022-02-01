@@ -54,4 +54,4 @@ If you want more frequent stats just change two latest linse of the script into 
  ```
 
 Once everything is done go to your prometheus URL and check if S.M.A.R.T. status is collected. 
-Just type *{your_drive}_failed* (where your drive is sda or nvme) in search string to check if metrics are collected properly.
+Just type **{your_drive}\_failed** (where your drive is sda or nvme) in search string to check if metrics are collected properly.
