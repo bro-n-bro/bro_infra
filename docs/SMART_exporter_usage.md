@@ -48,7 +48,7 @@ So the last thing we need to do - define a cron job. Set it up like the followin
 * * * * * /opt/smart_monitor.sh
 ```
 
-If you want more frequent stats just change two latest linse of the script into this:
+If you want more frequent stats just change two latest lines of the script into this:
 ```
  #collect_smart ${DISKS[\*]}</code>
  for run in {1..11} ; do collect_smart ${DISKS[*]}; sleep 5 ; done </code>
