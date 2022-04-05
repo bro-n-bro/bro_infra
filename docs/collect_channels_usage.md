@@ -5,7 +5,7 @@ First of all create directory for temporary files and download script.
 
 ``` 
 mkdir /opt/rls
-wget -O /opt/collect_channels.sh https://github.com/bro-n-bro/bro_infra/blob/main/scripts/smart_monitor.sh && chmod +x /opt/collect_channels.sh
+wget -O /opt/collect_channels.sh https://github.com/bro-n-bro/bro_infra/blob/channels-collector/scripts/collect_channels.sh && chmod +x /opt/collect_channels.sh
 ```
 
 After that run script and add correct values:
