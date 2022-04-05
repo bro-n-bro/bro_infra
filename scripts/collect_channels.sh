@@ -5,13 +5,13 @@ TMPDIR=/opt/rls
 
 COMPLETED="true"
 
-DAEMON1="/root/go/bin/cyber"
-CHANNEL1="channel-2"
-API1="https://rpc.bostrom.cybernode.ai:443"
+DAEMON1=""
+CHANNEL1=""
+API1=""
 
-DAEMON2="/root/go/bin/osmosisd"
-CHANNEL2="channel-95"
-API2="http://136.243.176.155:26657"
+DAEMON2=""
+CHANNEL2=""
+API2=""
 
 function collect_chain1() {
         D1=`echo $DAEMON1 | awk -F '/' '{print $NF}'`
