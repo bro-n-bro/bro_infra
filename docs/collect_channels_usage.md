@@ -20,3 +20,4 @@ For example, to run script every 10 minutest line should look like:
 ```
 
 Latest height will be collected into textfile collectors directory (/var/lib/node_exporter_textfile_collectors) and prefixed with chain name.
+For example, for Osmosis file name will be /var/lib/node_exporter_textfile_collectors/osmosisd.prom and its content - osmosisd_revision_height 2222222
