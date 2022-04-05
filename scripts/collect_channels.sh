@@ -3,7 +3,7 @@
 DIR=/var/lib/node_exporter_textfile_collectors
 TMPDIR=/opt/rls
 
-COMPLETED="true"
+COMPLETED=""
 
 DAEMON1=""
 CHANNEL1=""
