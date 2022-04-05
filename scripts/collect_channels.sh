@@ -129,7 +129,9 @@ function setup() {
 	fi
 
 }
-
+if [ ! -d $TMPDIR ]
+        then mkdir $TMPDIR
+fi
 if [[ -z $COMPLETED ]]
         then setup
         else collect_stats
