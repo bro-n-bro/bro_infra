@@ -2,7 +2,7 @@
 
 SMARTCTL=/usr/sbin/smartctl
 DISKS=(`lsblk 2>&1| grep -E  "^nvm|^sd" | grep -v NAME | awk '{print $1}'`)
-DIR=/var/lib/node_exporter_text_collectors
+DIR=/var/lib/node_exporter_textfile_collectors
 TMPDIR=/opt/smarts
 
 function collect_smart() {

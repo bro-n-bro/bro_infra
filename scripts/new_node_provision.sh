@@ -3,7 +3,7 @@
 # Install required soft & upgrades
 apt update
 apt upgrade -y
-apt install wget ufw make build-essential screen git libpam-google-authenticator fail2ban tree jq -y
+apt install wget ufw make build-essential screen git libpam-google-authenticator fail2ban tree jq smartmontools htop -y
 
 # install go
 
@@ -49,6 +49,12 @@ echo -e "Port $SSHPORT \nHostKey /etc/ssh/ssh_host_rsa_key \nHostKey /etc/ssh/ss
 sed -i 's/.*@include common-auth*/#@include common-auth/' /etc/pam.d/sshd
 echo 'auth required pam_google_authenticator.so' >> /etc/pam.d/sshd
 systemctl reload ssh
+
+# setup fail2ban
+sed -i 's/.*backend = %(sshd_backend)s*/enabled = true\nbantime = 14400\nfindtime = 3600\nmaxretry = 3/' /etc/fail2ban/jail.conf
+service fail2ban restart
+fail2ban-client status sshd
+
 
 #add trusted rsa keys to authorized_keys
 printf '\n************************************************\n'

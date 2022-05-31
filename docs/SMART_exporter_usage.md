@@ -7,6 +7,7 @@ First of all, define the directory where collector files will be stored (don't w
 
 ``` 
 mkdir /var/lib/node_exporter_textfile_collectors
+mkdir /opt/smarts
 ```
 
 ```
@@ -55,11 +56,4 @@ If you want more frequent stats just change two latest linse of the script into 
 
 Once everything is done go to your prometheus URL and check if S.M.A.R.T. status is collected. 
 Just type **{your_drive}\_failed** (where your drive is sda or nvme) in search string to check if metrics are collected properly.
-=======
-# Bro_n_Bro infra 
 
-This repository contain some usefull tools, setup's and config's we want to share in order to setup more stabe and robust infrastructure for The Great WEB. 
-
-Checkout our public services: 
-
-- Chain [stats](https://monitor.bronbro.io)
