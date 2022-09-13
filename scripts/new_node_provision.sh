@@ -97,6 +97,10 @@ echo -n "Do you want to setup default bro monitoring? (y/n, default y): "
            sed -i -e 's|ExecStart=/usr/local/bin/node_exporter|ExecStart=/usr/local/bin/node_exporter --collector.textfile.directory=/var/lib/node_exporter_textfile_collectors|g' /etc/systemd/system/node_exporter.service
 	   systemctl daemon-reload
            systemctl restart node_exporter
+      
+       # Restart prometheus as it fails to start when running from setup script
+	   systemctl restart prometheus
+
            curl -o /opt/smart_monitor.sh https://raw.githubusercontent.com/bro-n-bro/bro_infra/main/scripts/smart_monitor.sh
            chmod +x /opt/smart_monitor.sh
            mkdir /opt/smarts
@@ -178,7 +182,7 @@ add_keys
 # Add access from gateway.bronbro.io without 2nd factor
 add_gw
 
-#Setup default bro monitoring
+# Setup default bro monitoring
 setup_monitoring
 
 # Generate google 2FA
