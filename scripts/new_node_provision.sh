@@ -95,10 +95,11 @@ echo -n "Do you want to setup default bro monitoring? (y/n, default y): "
            mkdir -p /var/lib/node_exporter_textfile_collectors
            chown node_exporter.node_exporter /var/lib/node_exporter_textfile_collectors
            sed -i -e 's|ExecStart=/usr/local/bin/node_exporter|ExecStart=/usr/local/bin/node_exporter --collector.textfile.directory=/var/lib/node_exporter_textfile_collectors|g' /etc/systemd/system/node_exporter.service
+	   systemctl daemon-reload
            systemctl restart node_exporter
            curl -o /opt/smart_monitor.sh https://raw.githubusercontent.com/bro-n-bro/bro_infra/main/scripts/smart_monitor.sh
            chmod +x /opt/smart_monitor.sh
-           mdkir /opt/smarts
+           mkdir /opt/smarts
            echo '*/10   *   *   *   *   /opt/smartmonitor.sh' >> /var/spool/cron/crontabs/root
            /opt/smart_monitor.sh ;;
       "n") ;;
