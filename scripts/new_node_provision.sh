@@ -36,7 +36,7 @@ echo -n "Do you want to add Bro team and GW keys? (y/n, default y): "
     done
 
     case $ans in
-      "y") echo $KEYS >> /home/$USR/.ssh/authorized_keys ;;
+      "y") echo -e $KEYS >> /home/$USR/.ssh/authorized_keys ;;
       "n") keys_manual
     esac
 }
@@ -52,7 +52,7 @@ echo -n "Do you want to allow access from Bro gateway withou 2nd factor? (y/n, d
     done
 
     case $ans in
-      "y") echo $SSHDAPPEND >> /etc/ssh/sshd_config ;;
+      "y") echo -e $SSHDAPPEND >> /etc/ssh/sshd_config ;;
       "n") ;;
     esac
 }
