@@ -1,0 +1,105 @@
+# Relayer config by Bro_n_Bro for Hermes v1.x
+[global]
+log_level = 'info'
+
+[mode]
+
+[mode.clients]
+enabled = true
+refresh = true
+misbehaviour = true
+
+[mode.connections]
+enabled = false
+
+[mode.channels]
+enabled = false
+
+[mode.packets]
+enabled = true
+clear_interval = 100
+clear_on_start = true
+tx_confirmation = true
+
+[rest]
+enabled = true
+host = '127.0.0.1'
+port = 3000
+
+[telemetry]
+enabled = true
+host = '127.0.0.1'
+port = 3001
+
+[[chains]]
+id = 'osmosis-1'
+rpc_addr = 'http://127.0.0.1:26657'  # We are suggest to run all required api's as close as possible, idealy on the same machine
+grpc_addr = 'http://127.0.0.1:9090'
+websocket_addr = 'ws://127.0.0.1:26657/websocket'
+rpc_timeout = '15s'
+account_prefix = 'osmo'
+key_name = 'osmosis'
+store_prefix = 'ibc'
+max_gas = 8000000
+gas_price = { price = 0.005, denom = 'uosmo' }
+max_msg_num = 5
+max_tx_size = 2097152
+clock_drift = '16s'
+max_block_time = '8s'
+trusting_period = '777600s'
+trust_threshold = { numerator = '1', denominator = '3' }
+memo_prefix = 'This IBC tx supported by Bro_n_Bro relayer'
+[chains.packet_filter]
+policy = 'allow'
+list = [
+   ['transfer', 'channel-95']
+ ]
+
+
+[[chains]]
+id = 'bostrom'
+rpc_addr = 'http://localhost:46657'  # We are suggest to run all required api's as close as possible, idealy on the same machine
+grpc_addr = 'http://localhost:46090'
+websocket_addr = 'ws://localhost:46657/websocket'
+rpc_timeout = '15s'
+account_prefix = 'bostrom'
+key_name = 'cyber'
+store_prefix = 'ibc'
+max_gas = 8000000
+max_tx_size = 180000
+max_msg_num = 20
+gas_price = { price = 0.07, denom = 'boot' }
+clock_drift ='16s'
+max_block_time = '8s'
+trusting_period = '300000s'
+trust_threshold = { numerator = '1', denominator = '3' }
+memo_prefix = 'This IBC tx supported by Bro_n_Bro relayer'
+[chains.packet_filter]
+policy = 'allow'
+list = [
+   ['transfer', 'channel-2'],['transfer', 'channel-8']
+ ]
+
+
+[[chains]]
+id = 'cosmoshub-4'
+rpc_addr = 'http://localhost:36657'  # We are suggest to run all required api's as close as possible, idealy on the same machine
+grpc_addr = 'http://localhost:36090'
+websocket_addr = 'ws://localhost:36657/websocket'
+rpc_timeout = '15s'
+account_prefix = 'cosmos'
+key_name = 'cosmos'
+store_prefix = 'ibc'
+max_gas = 1400000
+max_tx_size = 180000
+max_msg_num = 20
+gas_price = { price = 0.01, denom = 'uatom' }
+clock_drift ='15s'
+trusting_period = '14days'
+trust_threshold = { numerator = '1', denominator = '3' }
+memo_prefix = 'This IBC tx supported by Bro_n_Bro relayer'
+[chains.packet_filter]
+policy = 'allow'
+list = [
+   ['transfer', 'channel-341']
+ ]
