@@ -48,8 +48,10 @@ function sata_status () {
                        then echo "${disk}${num}_failed_state 1" > $outfile
                        else echo "${disk}${num}_failed_state 0" > $outfile
                   fi
-                  echo "${disk}${num}_temperature `echo \"$tmpstatus\" | grep "Temperature_Celsius" | awk '{print $10}'`" >> $outfile
-                  echo "${disk}${num}_read_errors `echo \"$tmpstatus\" | grep "Raw_Read_Error_Rate" | awk '{print $10}'`" >> $outfile
+		  temp=`echo \"$tmpstatus\" | grep "Temperature_Celsius" | awk '{print $10}'`
+                  [[ -n $temp ]] && echo "${disk}${num}_temperature $temp" >> $outfile
+		  read_errors=`echo \"$tmpstatus\" | grep "Raw_Read_Error_Rate" | awk '{print $10}'`
+                  [[ -n $read_errors ]] && echo "${disk}${num}_read_errors $read_errors" >> $outfile
 		  write_errs=`echo \"$tmpstatus\" | grep "Write_Error_Rate" | awk '{print $10}'`
 		  [[ -n "$write_errs" ]] && echo "${disk}${num}_write_errors $write_errs" >> $outfile
 		  lifetime=`echo "$tmpstatus" | grep "Percent_Lifetime_Remain" | awk '{print $10}'`
@@ -65,9 +67,12 @@ function nvme_status () {
                        then echo "${disk}${num}_failed_state 1" > $outfile
                        else echo "${disk}${num}_failed_state 0" > $outfile
                   fi
-                  echo "${disk}${num}_temperature `echo \"$tmpstatus\" | grep "^Temperature:" | awk '{print $2}'`" >> $outfile
-                  echo "${disk}${num}_smart_errors `echo \"$tmpstatus\" | grep "^Error Information Log Entries:" | awk '{print $5}'|cut -d\% -f1`" >> $outfile
-                  echo "${disk}${num}_perc_used `echo \"$tmpstatus\" | grep "^Percentage Used:" | awk '{print $3}'|cut -d\% -f1`" >> $outfile
+		  temp=`echo \"$tmpstatus\" | grep "^Temperature:" | awk '{print $2}'`
+                  [[ -n $temp ]] && echo "${disk}${num}_temperature $temp" >> $outfile
+		  smart_errors=`echo \"$tmpstatus\" | grep "^Error Information Log Entries:" | awk '{print $5}'|cut -d\% -f1`
+		  [[ -n $smart_errors ]] && echo "${disk}${num}_smart_errors $smart_errors" >> $outfile
+		  lifetime=`echo \"$tmpstatus\" | grep "^Percentage Used:" | awk '{print $3}'|cut -d\% -f1`
+                  [[ -n $lifetime ]] && echo "${disk}${num}_perc_used $lifetime" >> $outfile
                   chown node_exporter.node_exporter $outfile
 	}
 
