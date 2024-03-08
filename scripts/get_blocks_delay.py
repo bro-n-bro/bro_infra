@@ -2,7 +2,7 @@
 How to use:
 Use python 3+
 pip install clickhouse_connect
-pip install websocket
+pip install websocket-client==1.7.0
 pip install rel
 Replace everything start with <ENTER... with real value
 Run `python get_blocks_delay.py`
