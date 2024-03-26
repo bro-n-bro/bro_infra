@@ -3,3 +3,4 @@
 *.iml
 commands-websocket-server/config.py
 commands-websocket-server/.idea
+dummy-server/.idea
