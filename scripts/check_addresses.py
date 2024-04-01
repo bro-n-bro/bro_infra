@@ -2,7 +2,7 @@
 pip install asyncio
 pip install aiohttp
 pip install aiochclient
-set real values instead of <NEUTRON_LCD_API> and <DB_URL>
+set real values for DB_URL and NEUTRON_LCD_API
 
 python3 check_addresses.py
 """
@@ -11,6 +11,8 @@ import asyncio
 from aiohttp import ClientSession
 from aiochclient import ChClient
 
+DB_URL = ''
+NEUTRON_LCD_API = ''
 
 def get_raw_query(address):
     return f"""
@@ -67,7 +69,7 @@ async def some_query(client, sql):
 
 
 async def get_http(session, address):
-    async with session.get(f'<NEUTRON_LCD_API>{address}') as resp:
+    async with session.get(f'{NEUTRON_LCD_API}{address}') as resp:
         return await resp.json()
 
 
@@ -83,7 +85,7 @@ def compare_date(tasks, address):
 async def compete():
 
     async with ClientSession() as session:
-        my_client = ChClient(session, url='<DB_URL>')
+        my_client = ChClient(session, url=DB_URL)
         addresses = [address['signer'] for address in await some_query(my_client, RANDOM_ADDRESSES_QUERY)]
         for address in addresses:
             tasks = []

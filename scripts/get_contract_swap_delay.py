@@ -4,7 +4,8 @@ Use python 3+
 pip install clickhouse_connect
 pip install websocket
 pip install rel
-Replace everything start with <ENTER... with real value
+set envs at the start of script
+
 Run `python get_blocks_delay.py`
 """
 import json
@@ -14,6 +15,11 @@ import clickhouse_connect
 import websocket
 import rel
 
+DB_HOST = ''
+DB_PORT = ''
+DB_USERNAME = ''
+DB_PASSWORD = ''
+WEBSOCKET_URL = ''
 
 def calculate_delay(block_number, contract_address, start_time):
     while True:
@@ -72,13 +78,13 @@ def on_open(ws):
 if __name__ == "__main__":
     websocket.enableTrace(False)
     clickhouse_client = clickhouse_connect.get_client(
-        host='<ENTER_HOST>',
-        port='<ENTER_PORT>',
-        username='<ENTER_USERNAME>',
-        password='<ENTER_PASSWORD>',
+        host=DB_HOST,
+        port=DB_PORT,
+        username=DB_USERNAME,
+        password=DB_PASSWORD,
         secure=False
     )
-    ws = websocket.WebSocketApp('<ENTER_WEBSOCKET_URL>',
+    ws = websocket.WebSocketApp(WEBSOCKET_URL,
                               on_open=on_open,
                               on_message=on_message,
                               on_error=on_error,
