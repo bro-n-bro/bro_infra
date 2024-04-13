@@ -1,3 +1,4 @@
+import asyncio
 import subprocess
 import uvicorn
 from fastapi import FastAPI, WebSocket
@@ -25,8 +26,13 @@ async def websocket_endpoint(websocket: WebSocket):
             for line in run_command(command):
                 line = " ".join(line.decode().split())
                 await websocket.send_text(line)
+                await asyncio.sleep(0.1)
             await websocket.send_text("FINISHED")
 
+
+@app.get("/")
+def get_info():
+    return {'available_commands': list(config.COMMANDS_MATCHER.keys())}
 
 if __name__ == '__main__':
     uvicorn.run(app, host="0.0.0.0", port=8000)
