@@ -104,7 +104,7 @@ echo -n "Do you want to setup default bro monitoring? (y/n, default y): "
            curl -o /opt/smart_monitor.sh https://raw.githubusercontent.com/bro-n-bro/bro_infra/main/scripts/smart_monitor.sh
            chmod +x /opt/smart_monitor.sh
            mkdir /opt/smarts
-           echo '*/10   *   *   *   *   /opt/smartmonitor.sh' >> /var/spool/cron/crontabs/root
+           echo '*/10   *   *   *   *   /opt/smart_monitor.sh' >> /var/spool/cron/crontabs/root
            /opt/smart_monitor.sh ;;
       "n") ;;
     esac
@@ -167,7 +167,6 @@ mv /etc/ssh/sshd_config /etc/ssh/default.sshd_config
 echo -e "Port $SSHPORT \nHostKey /etc/ssh/ssh_host_rsa_key \nHostKey /etc/ssh/ssh_host_ed25519_key \nKexAlgorithms curve25519-sha256@libssh.org \nCiphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr \nMACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com \nPermitRootLogin no \nAllowUsers $USR \nPubkeyAuthentication yes \nPasswordAuthentication no \nChallengeResponseAuthentication yes \nUsePAM yes \nAuthenticationMethods publickey,keyboard-interactive \nX11Forwarding no \nPrintMotd no \nClientAliveInterval 300 \nClientAliveCountMax 2 \nAcceptEnv LANG LC_* \nSubsystem	sftp	/usr/lib/openssh/sftp-server" >> /etc/ssh/sshd_config
 sed -i 's/.*@include common-auth*/#@include common-auth/' /etc/pam.d/sshd
 echo 'auth required pam_google_authenticator.so' >> /etc/pam.d/sshd
-systemctl reload ssh
 
 # setup fail2ban
 sed -i 's/.*backend = %(sshd_backend)s*/enabled = true\nbantime = 14400\nfindtime = 3600\nmaxretry = 3/' /etc/fail2ban/jail.conf
@@ -181,6 +180,7 @@ add_keys
 
 # Add access from gateway.bronbro.io without 2nd factor
 add_gw
+systemctl reload ssh
 
 # Setup default bro monitoring
 setup_monitoring
