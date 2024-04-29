@@ -24,8 +24,7 @@ async def websocket_endpoint(websocket: WebSocket):
             await websocket.send_text("INVALID_COMMAND")
         else:
             for line in run_command(command):
-                line = " ".join(line.decode().split())
-                await websocket.send_text(line)
+                await websocket.send_text(line.decode())
                 await asyncio.sleep(0.1)
             await websocket.send_text("FINISHED")
 
