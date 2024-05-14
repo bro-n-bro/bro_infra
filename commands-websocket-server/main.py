@@ -1,4 +1,5 @@
 import asyncio
+import json
 import subprocess
 import uvicorn
 from fastapi import FastAPI, WebSocket
@@ -24,7 +25,7 @@ async def websocket_endpoint(websocket: WebSocket):
             await websocket.send_text("INVALID_COMMAND")
         else:
             for line in run_command(command):
-                await websocket.send_text(line.decode())
+                await websocket.send_text(json.dumps(line.decode()))
                 await asyncio.sleep(0.1)
             await websocket.send_text("FINISHED")
 
