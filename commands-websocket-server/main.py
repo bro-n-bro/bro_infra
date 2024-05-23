@@ -22,12 +22,12 @@ async def websocket_endpoint(websocket: WebSocket):
         data = await websocket.receive_text()
         command = config.COMMANDS_MATCHER.get(data, None)
         if not command:
-            await websocket.send_text("INVALID_COMMAND")
+            await websocket.send_text(json.dumps("INVALID_COMMAND"))
         else:
             for line in run_command(command):
                 await websocket.send_text(json.dumps(line.decode().replace("\n", "")))
                 await asyncio.sleep(0.1)
-            await websocket.send_text("FINISHED")
+            await websocket.send_text(json.dumps("FINISHED"))
 
 
 @app.get("/")
